@@ -3,9 +3,9 @@
 class DeviseCreateUsers < ActiveRecord::Migration[5.2]
   def change
     create_table :users do |t|
-      t.string :email,              null: false, default: ""
-      t.string :username,           null: false, default: ""
-      t.string :full_name,          null: false, default: ""
+      t.string :email, null: false, default: ""
+      t.string :username, null: false, default: ""
+      t.string :full_name, null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
       t.string   :reset_password_token
       t.datetime :reset_password_sent_at
@@ -16,6 +16,9 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.inet     :current_sign_in_ip
       t.inet     :last_sign_in_ip
       t.timestamps null: false
+      t.integer :admin, null: false, default: 0
+      t.integer :author, null: false, default: 0
+      t.string :picture, null: false, default: 'default.png'
     end
 
     add_index :users, :email,                unique: true
