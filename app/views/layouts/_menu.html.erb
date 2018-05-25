@@ -36,9 +36,12 @@
       <% end %>
       <%= tag.li({class: 'nav-item dropdown'}) do %>
         <% if user_signed_in? %>
-          <%= link_to('#', {class: 'dropdown-toggle', role: 'button', data: {toggle: 'dropdown'}, aria: {expanded: 'false'}}) do %>
+          <%= link_to('#', {class: 'nav-link dropdown-toggle', role: 'button', data: {toggle: 'dropdown'}, aria: {expanded: 'false'}}) do %>
             <%= current_user.full_name %>
             <%= tag.span '', class: 'caret' %>
+          <% end %>
+          <%= tag.div({class: 'dropdown-menu', aria: {labelledby: 'navbarDropdown'}}) do %>
+            <%= link_to 'Sign Out', destroy_user_session_path, {method: 'delete', class: 'dropdown-item'} %>
           <% end %>
         <% else %>
           <%= link_to "Login/Signup", new_user_session_path, class: 'nav-link' %>
