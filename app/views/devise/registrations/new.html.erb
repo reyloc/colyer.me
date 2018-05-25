@@ -1,0 +1,31 @@
+<%= tag.h2 'Sign Up', class: 'text-center' %>
+<%= form_with url: registration_path(resource_name) do |f| %>
+  <%= devise_error_messages! %>
+  <%= tag.div({class: 'form-group'}) do %>
+    <%= f.label :username %>
+    <%= f.text_field :username, autocomplete: 'username', class: 'form-control' %>
+  <% end %>
+  <%= tag.div({class: 'form-group'}) do %>
+    <%= f.label :email %>
+    <%= f.email_field :email, autocomplete: 'email', class: 'form-control' %>
+  <% end %>
+  <%= tag.div({class: 'form-group'}) do %>
+    <%= f.label :full_name %>
+    <%= f.text_field :full_name, autocomplete: 'full_name', class: 'form-control' %>
+  <% end %>
+  <%= tag.div({class: 'form-group'}) do %>
+    <%= f.label :password do %>
+      <% if @minimum_password_length %>
+        Password <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <% end %>
+    <% end %>
+    <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
+  <% end %>
+  <%= tag.div({class: 'form-group'}) do %>
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %>
+  <% end %>
+  <%= tag.div({class: 'form-group text-center'}) do %>
+    <%= f.submit 'Sign Up', class: 'btn btn-primary' %>
+  <% end %>
+<% end %>
