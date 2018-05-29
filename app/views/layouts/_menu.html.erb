@@ -41,6 +41,8 @@
             <%= tag.span '', class: 'caret' %>
           <% end %>
           <%= tag.div({class: 'dropdown-menu', aria: {labelledby: 'navbarDropdown'}}) do %>
+            <%= link_to 'Your Profile', edit_user_registration_path, {class: 'dropdown-item'} %>
+            <%= tag.div '', {class: 'dropdown-divider'} %>
             <%= link_to 'Sign Out', destroy_user_session_path, {method: 'delete', class: 'dropdown-item'} %>
           <% end %>
         <% else %>
