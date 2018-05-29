@@ -2,7 +2,24 @@
   <%= tag.h2 'Your Profile' %>
 <% end %>
 <%= tag.div({class: 'text-center', style: 'margin-bottom: 25px;'}) do %>
-  <%= image_tag @current_user.picture, {class: 'img-fluid rounded', alt: @current_user.full_name} %>
+  <%= image_tag @current_user.picture, {class: 'img-fluid img-rounded', alt: @current_user.full_name, style: 'margin-bottom: 25px;'} %>
+  <%= tag.br %>
+  <%= tag.div do %>
+    <%= form_with scope: :user, url: update_picture_update_path, html: {multipart: true, action: :upload} do |f| %>
+      <%= f.hidden_field :id, :value => @current_user.id %>
+      <%= tag.div({class: 'form-group'}) do %>
+        <%= f.label :picture, 'Change Profile Picture?' %>
+        <%= file_field_tag 'picture', {autocomplete: 'false', class: 'form-control photo_upload', accept: 'image/*', onchange: 'readURL(this);'} %>
+        <%= tag.div({id: 'upload_preview', class: 'text-center'}) do %>
+          <%= tag.div tag.h4('Image Preview'), {class: 'test-center'} %>
+          <%= image_tag 'default.png', {id: 'uploaded_photo', class: 'img-fluid img-rounded', alt: 'Photo Preview'} %>
+        <% end %>
+        <%= tag.div({class: 'form-group text-center action'}) do %>
+          <%= f.submit 'Update', class: 'btn btn-primary' %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
 <% end %>
 <%= tag.div({class: 'row'}) do %>
   <%= tag.div({class: 'col-md-5 border-right'}) do %>
@@ -13,11 +30,11 @@
       <%= devise_error_messages! %>
       <%= tag.div({class: 'form-group'}) do %>
         <%= f.label :username %>
-        <%= f.text_field :username, autocomplete: 'username', class: 'form-control' %>
+        <%= f.text_field :username, autocomplete: 'username', class: 'form-control', disabled: true %>
       <% end %>
       <%= tag.div({class: 'form-group'}) do %>
         <%= f.label :email %>
-        <%= f.email_field :email, autocomplete: 'email', class: 'form-control' %>
+        <%= f.email_field :email, autocomplete: 'email', class: 'form-control', disabled: true %>
       <% end %>
       <%= tag.div({class: 'form-group'}) do %>
         <%= f.label :full_name %>
@@ -25,14 +42,14 @@
       <% end %>
       <%= tag.div({class: 'form-group'}) do %>
         <%= f.label :password %>
-        <%= tag.i "(leave blank if you don't want to change it)" %>
-        <%= f.password_field :password, autocomplete: "new-password", class: 'form-control' %>
+        <%= tag.i "(skip to keep it the same)" %>
+        <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
         <%= f.label :password_confirmation %>
-        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control' %>
+        <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %>
       <% end %>
       <%= tag.div({class: 'form-group'}) do %>
         <%= f.label :current_password %>
-        <%= f.password_field :current_password, autocomplete: "current-password", class: 'form-control' %>
+        <%= f.password_field :current_password, autocomplete: "off", class: 'form-control', required: true %>
       <% end %>
       <%= tag.div({class: 'form-group text-center action'}) do %>
         <%= f.submit 'Update', class: 'btn btn-primary' %>
