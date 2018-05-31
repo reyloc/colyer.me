@@ -23,6 +23,7 @@ gem 'html-pipeline'
 gem 'gemoji'
 gem 'sanitize'
 gem 'commonmarker'
+gem 'selectize-rails'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

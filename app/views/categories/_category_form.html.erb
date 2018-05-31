@@ -1,0 +1,13 @@
+<%= form_with scope: :category, url: categories_path do |f| %>
+  <%= tag.div({class: 'form-group'}) do %>
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+  <% end %>
+  <%= tag.div({class: 'form-group'}) do %>
+    <%= f.label :description %>
+    <%= f.text_field :description, class: 'form-control' %>
+  <% end %>
+  <%= tag.div({class: 'form-group text-center'}) do %>
+    <%= f.submit 'Create', class: 'btn btn-primary' %>
+  <% end %>
+<% end %>

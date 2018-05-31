@@ -1,9 +1,9 @@
 <%= tag.div({class: 'text-center'}) do %>
-  <%= tag.h1 'Posts' %>
+  <h1>Posts tagged with <%= @category.name %></h1>
 <% end %>
 <%= tag.div do %>
-  <%= tag.ul do %>
-    <% @posts.each do |post| %>
+  <% tag.ul do %>
+    <% @category.posts.each do |post| %>
       <%= tag.li do %>
         <%= link_to post.title, post_path(post.id) %>
         <%= tag.p do %>

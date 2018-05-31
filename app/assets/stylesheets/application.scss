@@ -1,4 +1,5 @@
 @import "bootstrap";
+@import 'selectize';
 @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
 
 html {
@@ -20,4 +21,7 @@ body {
 #upload_preview {
   display: none;
   margin: auto;
+}
+.post-summary {
+  margin: 25px;
 }

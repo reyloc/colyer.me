@@ -16,12 +16,10 @@
         <%= link_to 'Link', '#', {class: 'nav-link'} %>
       <% end %>
       <%= tag.li({class: 'nav-item dropdown'}) do %>
-        <%= link_to 'Dropdown', '#', {class: 'nav-link dropdown-toggle', id: 'navbarDropdown', role: 'button', data: {toggle: 'dropdown'}, aria: {haspopup: 'true', expanded: 'false'}} %>
+        <%= link_to 'Posts', '#', {class: 'nav-link dropdown-toggle', id: 'navbarDropdown', role: 'button', data: {toggle: 'dropdown'}, aria: {haspopup: 'true', expanded: 'false'}} %>
         <%= tag.div({class: 'dropdown-menu', aria: {labelledby: 'navbarDropdown'}}) do %>
-          <%= link_to 'Action', '#', {class: 'dropdown-item'} %>
-          <%= link_to 'Another Action', '#', {class: 'dropdown-item'} %>
-          <%= tag.div '', {class: 'dropdown-divider'} %>
-          <%= link_to 'Something else here', '#', {class: 'dropdown-item'} %>
+          <%= link_to 'All Posts', posts_path, {class: 'dropdown-item'} %>
+          <%= link_to 'All Categories', categories_path, {class: 'dropdown-item'} %>
         <% end %>
       <% end %>
     <% end %>
@@ -42,6 +40,17 @@
           <% end %>
           <%= tag.div({class: 'dropdown-menu', aria: {labelledby: 'navbarDropdown'}}) do %>
             <%= link_to 'Your Profile', edit_user_registration_path, {class: 'dropdown-item'} %>
+            <% if current_user.admin == 1 %>
+              <%= tag.div '', {class: 'dropdown-divider'} %>
+              <%= link_to 'Manage Users', manage_users_path, {class: 'dropdown-item'} %>
+              <%= link_to 'Manage Posts', manage_posts_path, {class: 'dropdown-item'} %>
+              <%= link_to 'Manage Categories', manage_categories_path, {class: 'dropdown-item'} %>
+            <% end %>
+            <% if current_user.author == 1 %>
+              <%= tag.div '', {class: 'dropdown-divider'} %>
+              <%= link_to 'Create Post', new_post_path, {class: 'dropdown-item'} %>
+              <%= link_to 'Create Category', new_category_path, {class: 'dropdown-item'} %>
+            <% end %>
             <%= tag.div '', {class: 'dropdown-divider'} %>
             <%= link_to 'Sign Out', destroy_user_session_path, {method: 'delete', class: 'dropdown-item'} %>
           <% end %>
@@ -49,6 +58,7 @@
           <%= link_to "Login/Signup", new_user_session_path, class: 'nav-link' %>
         <% end %>
       <% end %>
+      <%= tag.li '', {class: 'nav-item', style: 'min-width: 40px;'} %>
     <% end %>
   <% end %>
 <% end %>

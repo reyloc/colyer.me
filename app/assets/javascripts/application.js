@@ -3,6 +3,7 @@
 //= require jquery3
 //= require popper
 //= require bootstrap
+//= require selectize
 
 function readURL(input) {
   if (input.files && input.files[0]) {
@@ -30,3 +31,7 @@ function readURL(input) {
   }
   reader.readAsDataURL(input.files[0]);
 }
+
+$(document).on("turbolinks:load", function()  {
+  $(".selectize").selectize();
+});
