@@ -1,2 +1,93 @@
-<h1>Manage#users</h1>
-<p>Find me in app/views/manage/users.html.erb</p>
+<%= tag.div({class: 'text-center'}) do %>
+  <%= tag.h1 do %>
+    <%= controller.controller_name.titleize %> <%= action_name.titleize %>
+  <% end %>
+<% end %>
+<%= tag.div '', {class: 'text-center', id: 'message'} %>
+<%= tag.div do %>
+  <%= tag.table({class: 'table table-striped table-hover'}) do %>
+    <%= tag.thead do %>
+      <%= tag.tr({style: 'font-size: 10px;'}) do %>
+        <%= tag.th 'Username' %>
+        <%= tag.th 'Name' %>
+        <%= tag.th 'Creation' %>
+        <%= tag.th 'Admin?' %>
+        <%= tag.th 'Author?' %>
+        <%= tag.th 'Posts' %>
+        <%= tag.th 'Comments' %> 
+        <%= tag.th %>
+        <%= tag.th %>
+      <% end %>
+    <% end %>
+    <%= tag.tbody do %>
+      <% @users.each do |user| %>
+        <%= tag.tr({style: 'font-size: 10px;'}) do %>
+          <%= tag.td user.username %>
+          <%= tag.td user.full_name %>
+          <%= tag.td user.created_at.to_formatted_s(:long) %>
+          <%= tag.td({align: 'center'}) do %>
+            <%= tag.select({id: "#{user.id}-admin", autocomplete: 'off'}) do %>
+              <% if user.admin.zero? %>
+                <%= tag.option 'Yes', {value: 1} %>
+                <%= tag.option 'No', {value: 0, selected: true} %>
+              <% else %>
+                <%= tag.option 'Yes', {value: 1, selected: true} %>
+                <%= tag.option 'No', {value: 0} %>
+              <% end %>
+            <% end %>
+          <% end %>
+          <%= tag.td({align: 'center'}) do %>
+            <%= tag.select({id: "#{user.id}-author", autocomplete: 'off'}) do %>
+              <% if user.author.zero? %>
+                <%= tag.option 'Yes', {value: 1} %>
+                <%= tag.option 'No', {value: 0, selected: true} %>
+              <% else %>
+                <%= tag.option 'Yes', {value: 1, selected: true} %>
+                <%= tag.option 'No', {value: 0} %>
+              <% end %>
+            <% end %>
+          <% end %>
+          <%= tag.td user.posts.count, {align: 'center'} %>
+          <%= tag.td user.comments.count, {align: 'center'} %>
+          <%= tag.td do %>
+            <%= tag.button 'Edit', {id: "edit-#{user.id}", class: 'btn btn-primary btn-sm'} %>
+          <% end %>
+          <%= tag.td do %>
+            <% if user.id == current_user.id %>
+              <%= tag.button 'Delete', {id: "kill-#{user.id}", class: 'btn btn-danger btn-sm', disabled: true} %>
+            <% else %>
+              <%= tag.button 'Delete', {id: "kill-#{user.id}", class: 'btn btn-danger btn-sm'} %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+<%= javascript_tag({type: 'text/javascript'}) do %>
+  <% @users.each do |user| %>
+    $('#edit-<%= user.id %>').click(function() {
+      var admin = $('#<%= user.id %>-admin').val();
+      var author = $('#<%= user.id %>-author').val();
+      $.get("/api/edit_user?id=<%= user.id %>&admin=" + admin + "&author=" + author, function(data, status) {
+        if (data.response) {
+          $('#message').html("User <%= user.username %> updated!");
+        } else {
+          $('#message').html("User <%= user.username %> failed to update.<br />Reason: " + data.reason);
+        }
+      });
+    });
+    <% unless user.id == current_user.id %>
+      $('#kill-<%= user.id%>').click(function() {
+        $.get("/api/kill_user?id=<%= user.id %>", function(data, status) {
+        if (data.response) {
+          $('#message').html("User <%= user.username %> deleted!");
+          location.reload();
+        } else {
+          $('#message').html("User <%= user.username %> failed to delete.<br />Reason: " + data.reason);
+        }
+      });
+      });
+    <% end %>
+  <% end %>
+<% end %>

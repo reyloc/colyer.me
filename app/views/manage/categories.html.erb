@@ -1,2 +1,65 @@
-<h1>Manage#categories</h1>
-<p>Find me in app/views/manage/categories.html.erb</p>
+<%= tag.div({class: 'text-center'}) do %>
+  <%= tag.h1 do %>
+    <%= controller.controller_name.titleize %> <%= action_name.titleize %>
+  <% end %>
+<% end %>
+<%= tag.div '', {class: 'text-center', id: 'message'} %>
+<%= tag.div do %>
+  <%= tag.table({class: 'table table-striped table-hover'}) do %>
+    <%= tag.thead do %>
+      <%= tag.tr({style: 'font-size: 10px;'}) do %>
+        <%= tag.th 'Name' %>
+        <%= tag.th 'Description' %>
+        <%= tag.th 'Creation' %>
+        <%= tag.th 'Posts', {class: 'text-center'} %>
+        <%= tag.th %>
+        <%= tag.th %>
+      <% end %>
+    <% end %>
+    <%= tag.tbody do %>
+      <% @cats.each do |cat| %>
+        <%= tag.tr({style: 'font-size: 10px;'}) do %>
+          <%= tag.td do %>
+            <%= tag.input '', {value: cat.name, id: "name-#{cat.id}", name: "name-#{cat.id}", class: "form-control", autocomplete: 'off'} %>
+          <% end %>
+          <%= tag.td do %>
+            <%= tag.input '', {value: cat.description, id: "desc-#{cat.id}", name: "desc-#{cat.id}", class: "form-control", autocomplete: 'off'} %>
+          <% end %>
+          <%= tag.td cat.created_at.to_formatted_s(:long) %>
+          <%= tag.td cat.posts.count, {align: 'center'} %>
+          <%= tag.td do %>
+            <%= tag.button 'Edit', {id: "edit-#{cat.id}", class: 'btn btn-primary btn-sm'} %>
+          <% end %>
+          <%= tag.td do %>
+            <%= tag.button 'Delete', {id: "delete-#{cat.id}", class: 'btn btn-danger btn-sm'} %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+<%= javascript_tag({style: 'text/javascript'}) do %>
+  <% @cats.each do |cat| %>
+    $('#edit-<%= cat.id %>').click(function() {
+      name = $('#name-<%= cat.id %>').val();
+      desc = $('#desc-<%= cat.id %>').val();
+      $.get("/api/edit_category?id=<%= cat.id %>&name=" + name + "&desc=" + desc, function(data, status) {
+        if (data.response) {
+          $('#message').html("Category updated!");
+        } else {
+          $('#message').html("Category failed to update.<br />Reason: " + data.reason);
+        }
+      });
+    });
+    $('#delete-<%= cat.id %>').click(function() {
+      $.get("/api/kill_category?id=<%= cat.id %>", function(data, status) {
+        if (data.response) {
+          $('#message').html("Category has been deleted");
+          location.reload();
+        } else {
+          $('#message').html("Category failed to delete.<br />Reason: " + data.reason);
+        }
+      });
+    });
+  <% end %>
+<% end %>
