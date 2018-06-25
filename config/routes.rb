@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :posts
   resources :categories
   devise_for :users
-  get 'home/index'
+  resources :home, only: [:index]
   post 'update_picture/update'
-  root 'home#index'
+  root to: 'home#index'
 end
