@@ -79,16 +79,16 @@
     });
     <% unless user.id == current_user.id %>
       $('#kill-<%= user.id%>').click(function() {
-        $.get("/api/kill_user?id=<%= user.id %>", function(data, status) {
-          if (confirm("Are you sure? This will delete all their posts and comments.")) {
+        if (confirm("Are you sure? This will delete all their posts and comments.")) {
+          $.get("/api/kill_user?id=<%= user.id %>", function(data, status) {
             if (data.response) {
               $('#message').html("User <%= user.username %> deleted!");
               location.reload();
             } else {
               $('#message').html("User <%= user.username %> failed to delete.<br />Reason: " + data.reason);
             }
-          }
-        });
+          });
+        }
       });
     <% end %>
   <% end %>
