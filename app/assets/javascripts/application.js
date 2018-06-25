@@ -33,5 +33,5 @@ function readURL(input) {
 }
 
 $(document).on("turbolinks:load", function()  {
-  $(".selectize").selectize();
+  var $select = $(".selectize").selectize();
 });

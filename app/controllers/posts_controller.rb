@@ -3,11 +3,12 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, :except => [:show, :index]
   
   def index
-    @posts = Post.all.order(:id)
+    @posts = Post.where(:public => 1).order(:id)
   end
 
   def show
     @post = Post.find(params[:id])
+    redirect_to posts_path if @post.public.zero?
   end
 
   def new
@@ -36,6 +37,12 @@ class PostsController < ApplicationController
     else
       render 'new'
     end
+  end
+
+  def edit
+    redirect_to posts_path unless current_user.author == 1
+    @post = Post.find(params[:id])
+    redirect_to posts_path unless current_user.id == @post.user_id
   end
 
   def update

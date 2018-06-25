@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'api/kill_user'
   get 'api/edit_category'
   get 'api/kill_category'
+  get 'api/toggle_post_public'
   resources :posts
   resources :categories
   devise_for :users

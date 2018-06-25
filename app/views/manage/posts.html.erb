@@ -1,2 +1,71 @@
-<h1>Manage#posts</h1>
-<p>Find me in app/views/manage/posts.html.erb</p>
+<%= tag.div({class: 'text-center'}) do %>
+  <%= tag.h1 do %>
+    <%= controller.controller_name.titleize %> <%= action_name.titleize %>
+  <% end %>
+<% end %>
+<%= tag.div '', {id: 'message', class: 'text-center'} %>
+<%= tag.div do %>
+  <%= tag.table({class: 'table table-striped table-hover'}) do %>
+    <%= tag.thead do %>
+      <%= tag.tr({style: 'font-size: 10px;'}) do %>
+        <%= tag.th 'Author' %>
+        <%= tag.th 'Name' %>
+        <%= tag.th 'Creation' %>
+        <%= tag.th 'Public?' %>
+        <%= tag.th 'Comments' %>
+        <%= tag.th %>
+        <%= tag.th %>
+      <% end %>
+    <% end %>
+    <%= tag.tbody do %>
+      <% @posts.each do |post| %>
+        <%= tag.tr({style: 'font-size: 10px;'}) do %>
+          <%= tag.td post.user.username %>
+          <%= tag.td do %>
+            <% if post.public.zero? %>
+              <%= tag.span post.title, {title: 'Cannot view private posts'} %>
+            <% else %>
+              <%= link_to post.title, post_path(post.id) %>
+            <% end %>
+          <% end %>
+          <%= tag.td post.created_at.to_formatted_s(:long) %>
+          <%= tag.td({align: 'center'}) do %>
+            <%= (post.public.zero? ? 'N' : 'Y') %>
+          <% end %>
+          <%= tag.td({align: 'center'}) do %>
+            <%= post.comments.count %>
+          <% end %>
+          <%= tag.td do %>
+            <% if post.user_id == current_user.id %>
+              <%= button_to "Edit", edit_post_path(post.id), method: "get", class: 'btn btn-primary btn-sm' %>
+            <% else %>
+              <%= button_to "Edit", edit_post_path(post.id), method: "get", class: 'btn btn-primary btn-sm', disabled: true %>
+            <% end %>
+          <% end %>
+          <%= tag.td do %>
+            <% if post.public.zero? %>
+              <%= tag.button 'Make Public', {class: 'btn btn-primary btn-sm', id: "public-#{post.id}"} %>
+            <% else %>
+              <%= tag.button 'Make Private', {class: 'btn btn-danger btn-sm', id: "public-#{post.id}"} %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+<%= javascript_tag({type: 'text/javascript'}) do %>
+  <% @posts.each do |post| %>
+    $('#public-<%= post.id %>').click(function() {
+      $.get("/api/toggle_post_public?id=<%= post.id %>", function(data, status) {
+        if (data.response) {
+          $('#message').html("Post updated!");
+          location.reload();
+        } else {
+          $('#message').html("Post failed to update.<br />Reason: " + data.reason);
+        }
+      });
+
+    });
+  <% end %>
+<% end %>

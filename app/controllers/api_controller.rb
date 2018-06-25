@@ -60,6 +60,12 @@ class ApiController < ApplicationController
     render json: {"response": true, "reason": ""}
   end
 
+  def toggle_post_public
+    post = Post.find(params[:id])
+    change_post_public(post)
+    render json: {"response": true, "reason": ""}
+  end
+
   private
 
   def user_has_posts?(id)
@@ -96,5 +102,13 @@ class ApiController < ApplicationController
       end
     end
     c.destroy
+  end
+  def change_post_public(p)
+    if p.public.zero?
+      p.public = 1
+    else
+      p.public = 0
+    end
+    p.save
   end
 end

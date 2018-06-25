@@ -8,5 +8,6 @@ class ManageController < ApplicationController
   end
 
   def posts
+    @posts = Post.all.order(:id)
   end
 end

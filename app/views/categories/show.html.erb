@@ -4,12 +4,14 @@
 <%= tag.div do %>
   <% tag.ul do %>
     <% @category.posts.each do |post| %>
-      <%= tag.li do %>
-        <%= link_to post.title, post_path(post.id) %>
-        <%= tag.p do %>
-          Written by <%= post.user.full_name %> on <%= post.created_at.to_formatted_s(:long) %>
-          <%= tag.br %>
-          <%= post.description %>
+      <% unless post.public.zero? %>
+        <%= tag.li do %>
+          <%= link_to post.title, post_path(post.id) %>
+          <%= tag.p do %>
+            Written by <%= post.user.full_name %> on <%= post.created_at.to_formatted_s(:long) %>
+            <%= tag.br %>
+            <%= post.description %>
+          <% end %>
         <% end %>
       <% end %>
     <% end %>

@@ -7,7 +7,7 @@
       <% if cat.posts.count > 0 %>
         <%= tag.li do %>
           <%= link_to(category_path(cat.id)) do %>
-            <%= cat.name %> (<%= pluralize(cat.posts.count, 'post') %>)
+            <%= cat.name %> (<%= pluralize(cat.posts.where(:public => 1).count, 'post') %>)
           <% end %>
           <%= tag.i cat.description %>
         <% end %>
