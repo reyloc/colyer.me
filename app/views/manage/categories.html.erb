@@ -31,7 +31,7 @@
             <%= tag.button 'Edit', {id: "edit-#{cat.id}", class: 'btn btn-primary btn-sm'} %>
           <% end %>
           <%= tag.td do %>
-            <%= tag.button 'Delete', {id: "delete-#{cat.id}", class: 'btn btn-danger btn-sm'} %>
+            <%= button_to 'Delete', category_path(cat.id), method: :delete, class: 'btn btn-danger btn-sm', data: {confirm: 'Are you sure?'} %>
           <% end %>
         <% end %>
       <% end %>
@@ -50,18 +50,6 @@
           $('#message').html("Category failed to update.<br />Reason: " + data.reason);
         }
       });
-    });
-    $('#delete-<%= cat.id %>').click(function() {
-      if (confirm("Are you sure?")) {
-        $.get("/api/kill_category?id=<%= cat.id %>", function(data, status) {
-          if (data.response) {
-            $('#message').html("Category has been deleted");
-            location.reload();
-          } else {
-            $('#message').html("Category failed to delete.<br />Reason: " + data.reason);
-          }
-        });
-      }
     });
   <% end %>
 <% end %>

@@ -51,11 +51,32 @@ class PostsController < ApplicationController
 
   def destroy
     redirect_to posts_path unless current_user.author == 1
+    @post = Post.find(params[:id])
+    purge_post(@post)
+    if current_user.admin == 1
+     redirect_to manage_posts_path
+    else
+      redirect_to posts_path
+    end
   end
 
+  private
 
   def chunk(string)
     string.scan(/.{1,250}/)
+  end
+
+  def purge_post(p)
+    PostContent.where(:post_id => p.id).each do |pc|
+      pc.destroy
+    end
+    PostCategory.where(:post_id => p.id).each do |pc|
+      pc.destroy
+    end
+    Comment.where(:post_id => p.id).each do |c|
+      c.destroy
+    end
+    p.destroy
   end
 
 end

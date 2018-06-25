@@ -15,6 +15,7 @@
         <%= tag.th 'Comments' %>
         <%= tag.th %>
         <%= tag.th %>
+        <%= tag.th %>
       <% end %>
     <% end %>
     <%= tag.tbody do %>
@@ -49,6 +50,13 @@
               <%= tag.button 'Make Private', {class: 'btn btn-danger btn-sm', id: "public-#{post.id}"} %>
             <% end %>
           <% end %>
+          <%= tag.td do %>
+            <% if post.user_id == current_user.id %>
+              <%= button_to 'Delete', post_path(post.id), method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger btn-sm' %>
+            <% else %>
+              <%= button_to 'Delete', post_path(post.id), method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger btn-sm', disabled: true %>
+            <% end %>
+          <% end %>
         <% end %>
       <% end %>
     <% end %>
@@ -65,7 +73,6 @@
           $('#message').html("Post failed to update.<br />Reason: " + data.reason);
         }
       });
-
     });
   <% end %>
 <% end %>
