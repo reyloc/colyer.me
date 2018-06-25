@@ -1,5 +1,5 @@
 <%= tag.div do %>
-  <%= form_with scope: :post, url: posts_path do |f| %>
+  <%= form_with(model: @post) do |f| %>
     <%= tag.div({class: 'form-group'}) do %>
       <%= f.label :title %>
       <%= f.text_field :title, {class: 'form-control', placeholder: 'The title of your post'} %>
@@ -18,7 +18,7 @@
     <% end %>
     <%= tag.div({class: 'form-group'}) do %>
       <%= f.label :categories %>
-      <%= f.select :categories, Category.all.pluck(:name, :id), {}, {class: 'selectize', autocomplete: 'off', multiple: true} %>
+      <%= f.select :category_ids, Category.all.pluck(:name, :id), {}, {class: 'selectize', autocomplete: 'off', multiple: true} %>
     <% end %>
     <%= tag.div({class: 'form-group text-center'}) do %>
       <%= tag.div({class: 'form-check'}) do %>
@@ -27,7 +27,7 @@
       <% end %>
     <% end %>
     <%= tag.div({class: 'text-center form-group'}) do %>
-      <%= f.submit 'Create', class: 'btn btn-primary' %>
+      <%= f.submit "#{action_name.titleize} #{controller.controller_name.titleize.singularize}", class: 'btn btn-primary' %>
     <% end %>
   <% end %>
 <% end %>

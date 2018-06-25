@@ -1,38 +1,25 @@
 class PostsController < ApplicationController
 
   before_action :authenticate_user!, :except => [:show, :index]
+  before_action :limit_actions, only: [:new, :edit, :update, :create, :destroy]
+  before_action :set_post, except: [:index, :new, :create]
+  before_action :redirect_if_not_public, except: [:index, :new, :create, :destroy]
   
   def index
     @posts = Post.where(:public => 1).order(:id)
   end
 
   def show
-    @post = Post.find(params[:id])
-    redirect_to posts_path if @post.public.zero?
   end
 
   def new
     redirect_to posts_path unless current_user.author == 1
-    @cats = Category.all.order(:name)
+    @post = current_user.posts.new
   end
 
   def create
-    redirect_to posts_path unless current_user.author == 1
-    @post = Post.new(
-      :title => params['post']['title'],
-      :keywords => params['post']['keywords'],
-      :description => params['post']['description'],
-      :public => params['post']['public'],
-      :user_id => current_user.id
-    )
+    @post = current_user.posts.new(post_params)
     if @post.save
-      params['post']['categories'].each do |cat|
-        next if cat.empty?
-        PostCategory.new(:category_id => cat, :post_id => @post.id).save
-      end
-      chunk(params['post']['content']).each do |content|
-        PostContent.new(:post_id => @post.id, :content => content).save
-      end
       redirect_to @post
     else
       render 'new'
@@ -40,22 +27,35 @@ class PostsController < ApplicationController
   end
 
   def edit
-    redirect_to posts_path unless current_user.author == 1
-    @post = Post.find(params[:id])
-    redirect_to posts_path unless current_user.id == @post.user_id
   end
 
   def update
-    redirect_to posts_path unless current_user.author == 1
+    if @post.update(post_params)
+      redirect_to post_path(@post.id)
+    else
+      render 'edit'
+    end
   end
 
   def destroy
-    redirect_to posts_path unless current_user.author == 1
+    PostCategory.where(post_id: @post.id).destroy_all
+    @post.destroy
+    redirect_to manage_posts_path
   end
 
-
-  def chunk(string)
-    string.scan(/.{1,250}/)
+  private
+  
+  def post_params
+    params.require(:post).permit(:title, :content, :keywords, :description, :public, category_ids: [])    
   end
 
+  def set_post
+    @post = Post.find(params[:id])
+  end
+
+  def redirect_if_not_public
+    if @post.public.zero?
+      redirect_to posts_path
+    end
+  end
 end

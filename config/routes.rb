@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   get 'manage/users'
   get 'manage/categories'
   get 'manage/posts'
@@ -9,7 +10,6 @@ Rails.application.routes.draw do
   get 'api/toggle_post_public'
   resources :posts
   resources :categories
-  devise_for :users
   resources :home, only: [:index]
   post 'update_picture/update'
   root to: 'home#index'

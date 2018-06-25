@@ -7,7 +7,7 @@
       <%= tag.h4 do %>
         <%= link_to post.title, post_path(post.id) %>
       <% end %>
-      <%= post.post_contents.first.content %>...
+      <%= post.content[0...250] %>...
     <% end %>
   <% end %>
 <% end %>

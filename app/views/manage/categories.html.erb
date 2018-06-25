@@ -29,6 +29,7 @@
           <%= tag.td cat.posts.count, {align: 'center'} %>
           <%= tag.td do %>
             <%= tag.button 'Edit', {id: "edit-#{cat.id}", class: 'btn btn-primary btn-sm'} %>
+            <%#= button_to 'Edit', %>
           <% end %>
           <%= tag.td do %>
             <%= tag.button 'Delete', {id: "delete-#{cat.id}", class: 'btn btn-danger btn-sm'} %>

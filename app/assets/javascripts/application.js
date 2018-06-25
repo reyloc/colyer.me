@@ -32,6 +32,6 @@ function readURL(input) {
   reader.readAsDataURL(input.files[0]);
 }
 
-$(document).on("turbolinks:load", function()  {
-  var $select = $(".selectize").selectize();
-});
+//$(document).on("turbolinks:load", function()  {
+//  var $select = $(".selectize").selectize();
+//});
