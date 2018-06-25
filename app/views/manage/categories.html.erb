@@ -53,11 +53,13 @@
     });
     $('#delete-<%= cat.id %>').click(function() {
       $.get("/api/kill_category?id=<%= cat.id %>", function(data, status) {
-        if (data.response) {
-          $('#message').html("Category has been deleted");
-          location.reload();
-        } else {
-          $('#message').html("Category failed to delete.<br />Reason: " + data.reason);
+        if (confirm("Are you sure?")) {
+          if (data.response) {
+            $('#message').html("Category has been deleted");
+            location.reload();
+          } else {
+            $('#message').html("Category failed to delete.<br />Reason: " + data.reason);
+          }
         }
       });
     });
