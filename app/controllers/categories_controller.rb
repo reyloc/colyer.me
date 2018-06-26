@@ -22,13 +22,22 @@ class CategoriesController < ApplicationController
     end
   end
 
-  def update
+  def edit
   end
+
+  def update
+    if @category.update(category_params)
+      redirect_to category_path(@category.id)
+    else
+      render 'edit'
+    end
+  end
+
 
   def destroy
     PostCategory.where(category_id: @category.id).destroy_all
     @category.destroy
-    redirect somewhere? 
+    redirect_to manage_categories_path
   end
 
  private

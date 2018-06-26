@@ -5,8 +5,6 @@ Rails.application.routes.draw do
   get 'manage/posts'
   get 'api/edit_user'
   get 'api/kill_user'
-  get 'api/edit_category'
-  get 'api/kill_category'
   get 'api/toggle_post_public'
   resources :posts
   resources :categories
