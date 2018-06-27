@@ -51,6 +51,7 @@ class PostsController < ApplicationController
 
   def set_post
     @post = Post.find(params[:id])
+    @title = @post.title
     @author = @post.user.full_name
     @keywords = "#{@post.keywords},#{@post.categories.pluck(:name).join(',')}"
     @description = @post.description

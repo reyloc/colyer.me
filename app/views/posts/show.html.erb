@@ -1,6 +1,6 @@
 <%= tag.div({class: 'text-center'}) do %>
   <%= tag.u do %>
-    <%= tag.h1 @post.title.titleize %>
+    <%= tag.h1 @post.title %>
   <% end %>
 <% end %>
 <%= tag.div({class: 'text-center'}) do %>
@@ -20,7 +20,7 @@
   <% end %>
 <% end %>
 <%= tag.div({class: 'post-content'}) do %>
-  <%= @post.content %>
+  <%= simple_format @post.content, {}, sanitize: false %>
 <% end %>
 <%= tag.div({class: 'post-categories'}) do %>
   <% unless @post.categories.count.zero? %>
