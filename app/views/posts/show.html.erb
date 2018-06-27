@@ -23,13 +23,34 @@
   <%= @post.content %>
 <% end %>
 <%= tag.div({class: 'post-categories'}) do %>
-  Categories: 
-  <%= tag.div({style: 'margin-left: 25px;'}) do %>
-    <% @post.categories.each do |category| %>
-      <%= tag.button category.name, {class: 'btn btn-light btn-sm', disabled: true} %>
+  <% unless @post.categories.count.zero? %>
+    Categories: 
+    <%= tag.div({style: 'margin-left: 25px;'}) do %>
+      <% @post.categories.each do |category| %>
+        <%= tag.button category.name, {class: 'btn btn-light btn-sm', disabled: true} %>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>
 <%= tag.div({class: 'post-comments'}) do %>
   <%= tag.hr %>
+  <%= tag.div '', {id: 'disqus_thread'} %>
+  <%= javascript_tag({type: 'text/javascript'}) do %>
+    /*
+    var disqus_config = function () {
+      this.page.url = '<%= request.original_url %>';  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "PostShow<%= @post.id %>"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://colyer-me.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  <% end %>
+  <%= tag.noscript do %>
+    Please enable JavaScript to view the
+    <%= tag.a 'comments powered by Disqus.', {href: 'https://disqus.com/?ref_noscript'} %>
+  <% end %>
 <% end %>
