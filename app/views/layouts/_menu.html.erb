@@ -23,12 +23,14 @@
           <%= link_to 'This Site', 'https://github.com/reyloc/my_site', {class: 'dropdown-item', target: '_blank'} %>
         <% end %>
       <% end %>
+      <!--
       <%= tag.li({class: 'nav-item dropdown'}) do %>
         <%= link_to 'Tools', '#', {class: 'nav-link dropdown-toggle', id: 'navbarDropdown', role: 'button', data: {toggle: 'dropdown'}, aria: {haspopup: 'true', expanded: 'false'}} %>
         <%= tag.div({class: 'dropdown-menu', aria: {labelledby: 'navbarDropdown'}}) do %>
           <%= link_to 'Stuff', '#', {class: 'dropdown-item', target: '_blank'} %>
         <% end %>
       <% end %>
+      -->
       <%= tag.li({class: 'nav-item'}) do %>
         <%= link_to 'Resume', resume_index_path, {class: 'nav-link'} %>
       <% end %>
