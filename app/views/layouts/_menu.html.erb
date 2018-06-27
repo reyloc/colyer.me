@@ -9,12 +9,6 @@
   <% end %>
   <%= tag.div({class: 'collapse navbar-collapse', id: 'navbarSupportedContent'}) do %>
     <%= tag.ul({class: 'navbar-nav mr-auto'}) do %>
-      <%= tag.li({class: 'nav-item'}) do %>
-        <%= link_to 'Link', '#', {class: 'nav-link'} %>
-      <% end %>
-      <%= tag.li({class: 'nav-item'}) do %>
-        <%= link_to 'Link', '#', {class: 'nav-link'} %>
-      <% end %>
       <%= tag.li({class: 'nav-item dropdown'}) do %>
         <%= link_to 'Posts', '#', {class: 'nav-link dropdown-toggle', id: 'navbarDropdown', role: 'button', data: {toggle: 'dropdown'}, aria: {haspopup: 'true', expanded: 'false'}} %>
         <%= tag.div({class: 'dropdown-menu', aria: {labelledby: 'navbarDropdown'}}) do %>
@@ -22,8 +16,24 @@
           <%= link_to 'All Categories', categories_path, {class: 'dropdown-item'} %>
         <% end %>
       <% end %>
+      <%= tag.li({class: 'nav-item dropdown'}) do %>
+        <%= link_to 'Projects', '#', {class: 'nav-link dropdown-toggle', id: 'navbarDropdown', role: 'button', data: {toggle: 'dropdown'}, aria: {haspopup: 'true', expanded: 'false'}} %>
+        <%= tag.div({class: 'dropdown-menu', aria: {labelledby: 'navbarDropdown'}}) do %>
+          <%= link_to 'Legendary.Equipment', 'https://github.com/reyloc/legendary.equipment', {class: 'dropdown-item', target: '_blank'} %>
+        <% end %>
+      <% end %>
+      <%= tag.li({class: 'nav-item dropdown'}) do %>
+        <%= link_to 'Tools', '#', {class: 'nav-link dropdown-toggle', id: 'navbarDropdown', role: 'button', data: {toggle: 'dropdown'}, aria: {haspopup: 'true', expanded: 'false'}} %>
+        <%= tag.div({class: 'dropdown-menu', aria: {labelledby: 'navbarDropdown'}}) do %>
+          <%= link_to 'Stuff', '#', {class: 'dropdown-item', target: '_blank'} %>
+        <% end %>
+      <% end %>
+      <%= tag.li({class: 'nav-item'}) do %>
+        <%= link_to 'Resume', resume_index_path, {class: 'nav-link'} %>
+      <% end %>
     <% end %>
     <%= tag.ul({class: 'navbar-nav navbar-right'}) do %>
+      <!--
       <%= tag.li({class: 'nav-item'}) do %>
         <%= form_with :url => '/search', :class => 'form-inline' do |f| %>
           <%= f.text_field 'query', {type: 'search', aria: {label: 'search'}, class: 'form-control mr-sm-2', placeholder: 'Search'} %>
@@ -32,6 +42,7 @@
           <% end %>
         <% end %>
       <% end %>
+      -->
       <%= tag.li({class: 'nav-item dropdown'}) do %>
         <% if user_signed_in? %>
           <%= link_to('#', {class: 'nav-link dropdown-toggle', role: 'button', data: {toggle: 'dropdown'}, aria: {expanded: 'false'}}) do %>
