@@ -51,6 +51,9 @@ class PostsController < ApplicationController
 
   def set_post
     @post = Post.find(params[:id])
+    @author = @post.user.full_name
+    @keywords = "#{@post.keywords},#{@post.categories.pluck(:name).join(',')}"
+    @description = @post.description
   end
 
   def redirect_if_not_public

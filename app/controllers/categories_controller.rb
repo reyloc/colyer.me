@@ -33,7 +33,6 @@ class CategoriesController < ApplicationController
     end
   end
 
-
   def destroy
     PostCategory.where(category_id: @category.id).destroy_all
     @category.destroy
@@ -48,6 +47,8 @@ class CategoriesController < ApplicationController
 
   def set_category
     @category = Category.find(params[:id])
+    @keywords = @category.name
+    @description = @category.description
   end
 
 end

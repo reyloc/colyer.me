@@ -5,6 +5,8 @@
     <meta name="viewpoint" content="width=device-width, initial-scale=1">
     <title><%= @title ? @title : TITLE %></title>
     <meta name="author" content="<%= @author ? @author : AUTHOR %>">
+    <meta name="keywords" content="<%= @keywords ? @keywords : 'Colyer.me' %>">
+    <meta name="description" content="<%= @description ? @description : 'Colyer.me' %>">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>

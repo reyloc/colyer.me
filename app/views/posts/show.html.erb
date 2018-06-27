@@ -1,6 +1,6 @@
 <%= tag.div({class: 'text-center'}) do %>
   <%= tag.u do %>
-    <%= tag.h1 @post.title %>
+    <%= tag.h1 @post.title.titleize %>
   <% end %>
 <% end %>
 <%= tag.div({class: 'text-center'}) do %>
@@ -13,9 +13,23 @@
     Last update made <%= @post.updated_at.to_formatted_s(:long) %>
   <% end %>
 <% end %>
+<% if current_user.id == @post.user_id %>
+  <%= tag.div({class: 'author-section text-center'}) do %>
+    <%= button_to 'Edit Post', edit_post_path(@post.id), method: "get", class: 'btn btn-primary btn-sm' %>
+    <%= button_to 'Delete Post', post_path(@post.id), method: :delete, class: 'btn btn-danger btn-sm', data: {confirm: 'Are you sure?'} %>
+  <% end %>
+<% end %>
 <%= tag.div({class: 'post-content'}) do %>
   <%= @post.content %>
 <% end %>
 <%= tag.div({class: 'post-categories'}) do %>
-  <%= @post.categories.pluck(:name).join(', ') %>
+  Categories: 
+  <%= tag.div({style: 'margin-left: 25px;'}) do %>
+    <% @post.categories.each do |category| %>
+      <%= tag.button category.name, {class: 'btn btn-light btn-sm', disabled: true} %>
+    <% end %>
+  <% end %>
+<% end %>
+<%= tag.div({class: 'post-comments'}) do %>
+  <%= tag.hr %>
 <% end %>

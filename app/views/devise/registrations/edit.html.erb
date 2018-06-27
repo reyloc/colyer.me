@@ -60,6 +60,24 @@
     <% end %>
   <% end %>
   <%= tag.div({class: 'col-md-7'}) do %>
-    Profile stuff here
+    <% unless current_user.posts.count.zero? %>
+      <%= tag.h3 'Your Posts' %>
+      <%= tag.ul do %>
+        <% current_user.posts.each do |post| %>
+          <%= tag.li do %>
+            <%= link_to post.title, post_path(post.id) %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <% unless current_user.comments.count.zero? %>
+    <%= tag.h3 'Your comments' %>
+      <%= tag.ul do %>
+        <% current_user.comments.each do |comment| %>
+          <%= tag.li do %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
   <% end %>
 <% end %>

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'api/toggle_post_public'
   resources :posts
   resources :categories
+  resources :comments, except: [:index, :show]
   resources :home, only: [:index]
   post 'update_picture/update'
   root to: 'home#index'
