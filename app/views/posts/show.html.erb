@@ -13,10 +13,12 @@
     Last update made <%= @post.updated_at.to_formatted_s(:long) %>
   <% end %>
 <% end %>
-<% if current_user.id == @post.user_id %>
-  <%= tag.div({class: 'author-section text-center'}) do %>
-    <%= button_to 'Edit Post', edit_post_path(@post.id), method: "get", class: 'btn btn-primary btn-sm' %>
-    <%= button_to 'Delete Post', post_path(@post.id), method: :delete, class: 'btn btn-danger btn-sm', data: {confirm: 'Are you sure?'} %>
+<% if user_signed_in? %>
+  <% if current_user.id == @post.user_id %>
+    <%= tag.div({class: 'author-section text-center'}) do %>
+      <%= button_to 'Edit Post', edit_post_path(@post.id), method: "get", class: 'btn btn-primary btn-sm' %>
+      <%= button_to 'Delete Post', post_path(@post.id), method: :delete, class: 'btn btn-danger btn-sm', data: {confirm: 'Are you sure?'} %>
+    <% end %>
   <% end %>
 <% end %>
 <%= tag.div({class: 'post-content'}) do %>
