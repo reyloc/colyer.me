@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   resources :posts
   resources :categories
   resources :comments, except: [:index, :show]
+  resources :resume, only: [:index]
+  get 'resume/download'
   resources :home, only: [:index]
   post 'update_picture/update'
   root to: 'home#index'
