@@ -70,14 +70,5 @@
         <% end %>
       <% end %>
     <% end %>
-    <% unless current_user.comments.count.zero? %>
-    <%= tag.h3 'Your comments' %>
-      <%= tag.ul do %>
-        <% current_user.comments.each do |comment| %>
-          <%= tag.li do %>
-          <% end %>
-        <% end %>
-      <% end %>
-    <% end %>
   <% end %>
 <% end %>

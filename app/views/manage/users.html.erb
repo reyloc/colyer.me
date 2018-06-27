@@ -14,7 +14,6 @@
         <%= tag.th 'Admin?' %>
         <%= tag.th 'Author?' %>
         <%= tag.th 'Posts' %>
-        <%= tag.th 'Comments' %> 
         <%= tag.th %>
         <%= tag.th %>
       <% end %>
@@ -48,7 +47,6 @@
             <% end %>
           <% end %>
           <%= tag.td user.posts.count, {align: 'center'} %>
-          <%= tag.td user.comments.count, {align: 'center'} %>
           <%= tag.td do %>
             <%= tag.button 'Edit', {id: "edit-#{user.id}", class: 'btn btn-primary btn-sm'} %>
           <% end %>

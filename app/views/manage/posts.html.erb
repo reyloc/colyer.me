@@ -12,7 +12,6 @@
         <%= tag.th 'Name' %>
         <%= tag.th 'Creation' %>
         <%= tag.th 'Public?' %>
-        <%= tag.th 'Comments' %>
         <%= tag.th %>
         <%= tag.th %>
         <%= tag.th %>
@@ -32,9 +31,6 @@
           <%= tag.td post.created_at.to_formatted_s(:long) %>
           <%= tag.td({align: 'center'}) do %>
             <%= (post.public.zero? ? 'N' : 'Y') %>
-          <% end %>
-          <%= tag.td({align: 'center'}) do %>
-            <%= post.comments.count %>
           <% end %>
           <%= tag.td do %>
             <% if post.user_id == current_user.id %>
