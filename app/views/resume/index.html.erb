@@ -1,11 +1,10 @@
 <%= tag.div({class: 'text-center'}) do %>
-  <%= tag.h1 controller.controller_name.titleize %>
-  <%= link_to 'Download my resume', resume_download_path, {target: '_blank'} %>
+  <%= tag.h1 controller.controller_name.titleize %>  <%= link_to 'Download my resume', resume_download_path, {target: '_blank'} %>
 <% end %>
 <%= tag.div({class: 'resume'}) do %>
   <%= tag.div({class: 'resume-header row'}) do %>
     <%= tag.div 'Jason Colyer', {class: 'resume-header-name col-md-6'} %>
-    <%= tag.div({class: 'resume-header-info col-md-6'}) do %>
+    <%= tag.div({class: 'resume-header-info col-md-6 text-right'}) do %>
       <%= link_to 'My Github', 'https://github.com/reyloc', {target: '_blank'} %>
       <%= tag.br %>
       <%= link_to 'My LinkedIn', 'https://www.linkedin.com/in/jason-colyer/', {target: '_blank'} %>
