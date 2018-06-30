@@ -59,7 +59,7 @@ class PostsController < ApplicationController
 
   def redirect_if_not_public
     if @post.public.zero?
-      redirect_to posts_path
+      redirect_to posts_path unless @post.user_id == current_user.id
     end
   end
 end

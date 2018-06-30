@@ -1,4 +1,8 @@
 class ManageController < ApplicationController
+
+  before_action :authenticate_user!
+  before_action :limit_actions
+
   def users
     @users = User.all.order(:id)
   end

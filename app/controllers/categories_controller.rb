@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+
   before_action :limit_actions, only: [:new, :edit, :update, :create, :destroy]	
   before_action :set_category, except: [:index, :new, :create]
 
@@ -39,7 +40,7 @@ class CategoriesController < ApplicationController
     redirect_to manage_categories_path
   end
 
- private
+  private
 
   def category_params
     params.require(:category).permit(:name, :description)
