@@ -1,16 +1,15 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!, except: %w[:show :index]
+  before_action :limit_actions, only: %w[:new :edit :update :create :destroy]
+  before_action :set_post, except: %w[:index :new :create]
+  before_action :redirect_if_not_public,
+                except: %w[:index :new :create :destroy]
 
-  before_action :authenticate_user!, :except => [:show, :index]
-  before_action :limit_actions, only: [:new, :edit, :update, :create, :destroy]
-  before_action :set_post, except: [:index, :new, :create]
-  before_action :redirect_if_not_public, except: [:index, :new, :create, :destroy]
-  
   def index
-    @posts = Post.where(:public => 1).order(:id)
+    @posts = Post.where(public: 1).order(:id)
   end
 
-  def show
-  end
+  def show; end
 
   def new
     redirect_to posts_path unless current_user.author == 1
@@ -26,8 +25,7 @@ class PostsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @post.update(post_params)
@@ -44,9 +42,10 @@ class PostsController < ApplicationController
   end
 
   private
-  
+
   def post_params
-    params.require(:post).permit(:title, :content, :keywords, :description, :public, category_ids: [])    
+    params.require(:post).permit(:title, :content, :keywords, :description,
+                                 :public, category_ids: [])
   end
 
   def set_post
@@ -58,8 +57,7 @@ class PostsController < ApplicationController
   end
 
   def redirect_if_not_public
-    if @post.public.zero?
-      redirect_to posts_path unless @post.user_id == current_user.id
-    end
+    return unless @post.public.zero?
+    redirect_to posts_path unless @post.user_id == current_user.id
   end
 end
