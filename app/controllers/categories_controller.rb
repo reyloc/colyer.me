@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CategoriesController < ApplicationController
   before_action :limit_actions, only: %w[:new :edit :update :create :destroy]
   before_action :set_category, except: %w[:index :new :create]

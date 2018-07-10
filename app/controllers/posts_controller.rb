@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: %w[:show :index]
   before_action :limit_actions, only: %w[:new :edit :update :create :destroy]

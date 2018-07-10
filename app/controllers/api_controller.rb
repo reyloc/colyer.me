@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApiController < ApplicationController
   before_action :set_user, only: %w[:edit_user :kill_user]
   before_action :set_post, only: :toggle_post_public
