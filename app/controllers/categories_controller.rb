@@ -1,14 +1,12 @@
 class CategoriesController < ApplicationController
-
-  before_action :limit_actions, only: [:new, :edit, :update, :create, :destroy]	
-  before_action :set_category, except: [:index, :new, :create]
+  before_action :limit_actions, only: %w[:new :edit :update :create :destroy]
+  before_action :set_category, except: %w[:index :new :create]
 
   def index
     @cats = Category.all.order(:name)
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @category = Category.new
@@ -17,14 +15,14 @@ class CategoriesController < ApplicationController
   def create
     @category = Category.new(category_params)
     if @category.save
-      redirect_to category_path(@category.id), notice: "Category #{@category.name} has been created!"
+      redirect_to category_path(@category.id),
+                  notice: "Category #{@category.name} has been created!"
     else
       render 'new'
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @category.update(category_params)
@@ -51,5 +49,4 @@ class CategoriesController < ApplicationController
     @keywords = @category.name
     @description = @category.description
   end
-
 end
