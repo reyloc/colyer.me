@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Defines update_picture controller
 class UpdatePictureController < ApplicationController
   before_action :set_user, only: :update
   def update

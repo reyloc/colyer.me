@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Defines manage controller
 class ManageController < ApplicationController
   before_action :authenticate_user!
   before_action :limit_actions

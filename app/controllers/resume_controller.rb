@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Defines resume controller
 class ResumeController < ApplicationController
   def index; end
 

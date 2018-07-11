@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'application_system_test_case'
 
 class PostsTest < ApplicationSystemTestCase
-  setup do
+  setup 'Do Setup' do
     @post = posts(:one)
   end
 

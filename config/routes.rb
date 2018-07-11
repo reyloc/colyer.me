@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   devise_for :users
   get 'manage/users'
@@ -8,10 +10,10 @@ Rails.application.routes.draw do
   get 'api/toggle_post_public'
   resources :posts
   resources :categories
-  resources :comments, except: [:index, :show]
-  resources :resume, only: [:index]
+  resources :comments, except: %w[:index :show]
+  resources :resume, only: :index
   get 'resume/download'
-  resources :home, only: [:index]
+  resources :home, only: :index
   post 'update_picture/update'
   root to: 'home#index'
 end
