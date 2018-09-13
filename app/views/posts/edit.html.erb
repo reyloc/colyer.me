@@ -1,9 +1,0 @@
-<%= tag.div({class: 'text-center'}) do %>
-  <%= tag.h1 'Edit Post' %>
-<% end %>
-<%= render 'post_form' %>
-<%= javascript_tag({type: 'text/javascript'}) do %>
-  $(document).on("turbolinks:load", function()  {
-    var $select = $(".selectize").selectize();
-  });
-<% end %>
